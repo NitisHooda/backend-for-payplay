@@ -1,13 +1,14 @@
-var express = require('express')
-var bodyParser = require('body-parser')
-var passport = require('passport')
-
+var express = require('express');
+var bodyParser = require('body-parser');
+var passport = require('passport');
 var User = require('../models/user');
+
 
 var router = express.Router();
 router.use(bodyParser.json());
 
 router.route('/')
+
 .get(function(req, res){
     var err = new Error("Bad Request");
     err.status = 400;
@@ -16,12 +17,11 @@ router.route('/')
 
 .post(function(req, res, next){
     console.log(req.body);
-    User.findOne({username : req.body.firstname}).exec(function(err, user){
+    User.findOne({username : req.body.firstname}, function(err, user){
         if (err) {
             throw err;
         }
         else{
-            console.log(user);
             user.transactions.push({
                 txnid : req.body.txnid,
                 amount : req.body.amount,
@@ -30,15 +30,12 @@ router.route('/')
                 Date : req.body.addedon,
                 PayuTransactionId : req.body.mihpayid
             });
-            user.save(function(err, transction){
-                console.log(transction);
-            });
         }
-        
+        user.save(function(err, transaction){
+            console.log(transaction);
+        });
         
     });
-    
-    
     res.writeHead(302, {'Location' : 'http://localhost:8100/#/app/home'});
     
     res.end();

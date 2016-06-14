@@ -4,13 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var http = require('http');
 var cors = require('cors');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var port = 3000;
-var hostname = 'ec2-52-40-1-108.us-west-2.compute.amazonaws.com';
 
 var config = require('./config');
 mongoose.connect(config.mongoUrl);
@@ -35,11 +32,6 @@ app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-var server = http.createServer(app);
-server.listen(port, hostname, function(){
-    console.log("Server running at http://${hostname}:${port}/");
-});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

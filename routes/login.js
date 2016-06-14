@@ -30,17 +30,24 @@ router.route('/')
                     return res.status(500).json({
                         err : 'Could not login user'
                         });
-                }    
+                }
+            
+            var tokenData = {
+                username : user.username,
+                email : user.email,
+                phoneNumber : user.phoneNumber
+            }
         
-            var token = Verify.getToken(user);
+            var token = Verify.getToken(tokenData);
             res.status(200).json({
                 status : 'Successfully Loggedin',
                 success : true,
                 token : token,
                 username : user.username, 
                 email : user.email,
-                amount : user.walletAmount,
-                profileImage : user.profileImage
+                phoneNumber : user.phoneNumber,
+                firstname : user.firstname,
+                lastname: user.lastname
             });
             console.log(user.username);
          });

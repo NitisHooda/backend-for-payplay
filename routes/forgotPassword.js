@@ -13,6 +13,12 @@ router.use(bodyParser.json());
 
 router.route('/')
 
+.get(function(req, res){
+    var error = new Error("Bad Request");
+    error.status = 400;
+    throw error;
+})
+
 .post(function(req, res, next){
     console.log(req.body.email);
     async.waterfall([
@@ -26,6 +32,7 @@ router.route('/')
              Users.findOne({email : req.body.email}, function(err, user){
                 if(!user){
                     console.log('User not found');
+                    res.status(400).json("Invalid Email!");
                 }
                 console.log(user);
                 user.resetPasswordToken = token;

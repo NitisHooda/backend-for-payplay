@@ -10,47 +10,28 @@ var router = express.Router();
 
 router.route('/')
 
-.get( function(req, res, next){
-    var Auth = req.body.token || req.query.token || req.headers.authorization;
-    //console.log(req.headers);
-    if (Auth) {
-        var splitHeader = Auth.split(' ');
-        var token = splitHeader[1];
-        //console.log(token);
-        var decoded = jwt.decode(token,{complete:true});
-        //console.log(decoded.payload);
-        //console.log(decoded);
-        jwt.verify(token, config.secretKey, function(err, decoded){
-        if (err) {
-            console.log(err);
-            return res.status(401).json({
-                success: false,
-                message : 'Invalid token'
-                });
-        }
-        else{
+.get( Verify.verifyOrdinaryUser, function(req, res, next){
             //req.decode = decoded;*/
-            //console.log(req.decoded._doc);
-            User.findOne({username : decoded._doc.username },function(err, user){
+            //console.log(req);
+            User.findOne({username : req.decoded.username },function(err, user){
             if (err) {
-                throw err;
+                 throw err;
             }
             else{
+                if (!user) {
+                   res.status(400).json("User not found");
+                }
+                else{
                 //console.log(req.decoded._doc);
-                res.status(200).json(user.transactions);
+                    res.status(200).json(user.transactions);
+                }
             }
-        });
-       }
-    })
-        
-    }
-    else{
-        return res.status(403).json({
-            success : false,
-            message : 'No token provided'
-        })
-    }
-    
+        });   
 })
 
+.post(function(req,res){
+    var err = new Error("Bad Request");
+    err.status =  400;
+    throw err;
+})
 module.exports = router;

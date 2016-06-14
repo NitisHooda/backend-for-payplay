@@ -14,8 +14,8 @@ router.get('/:token', function(req, res, next){
         console.log(req.params.token);
     Users.findOne({resetPasswordToken : req.params.token, resetPasswordExpires : { $gt : Date.now()}}, function(err, user){
         if (!user) {
-                
-            console.log('BAD');
+             res.status(400).json("User does not exist!");   
+            //console.log('BAD');
         }
         console.log(user);
         //res.send('Hello World');
@@ -31,7 +31,8 @@ router.post('/:token', function(req, res, next){
                         if (req.body.password == req.body.confirm) {
                                 Users.findOne({resetPasswordToken : req.params.token, resetPasswordExpires : { $gt : Date.now()}},function(err,user){
                                         if(!user){
-                                               console.log('BAD00'); 
+                                               //console.log('BAD00');
+                                               res.status(400).json("User does not exist!");
                                         }
                                         user.setPassword(req.body.password, function(){
                                                 user.save();
