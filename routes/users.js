@@ -20,7 +20,7 @@ router.route('/')
 
 .post(function(req,res,next){
   //console.log(req.body.password);
-  User.register(new User({username : req.body.username, email : req.body.email, phoneNumber : req.body.phoneNumber}), req.body.password, function(err, user){
+  User.register(new User({username : req.body.username, firstname : req.body.firstname, lastname : req.body.lastname, email : req.body.email, phoneNumber : req.body.phoneNumber}), req.body.password, function(err, user){
                   if(err){
                           console.log(err.errors);
                           return res.status(500).json({err : err});  
