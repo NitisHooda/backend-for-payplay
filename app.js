@@ -25,6 +25,7 @@ var success = require('./routes/success');
 var transactionHistory = require('./routes/transactionHistory');
 var forgotPassword = require('./routes/forgotPassword');
 var reset = require('./routes/reset');
+var editProfile = require('./routes/editProfile');
 
 var app = express();
 app.use(cors());
@@ -57,6 +58,7 @@ app.use('/success', success);
 app.use('/transactionHistory', transactionHistory);
 app.use('/forgotPassword', forgotPassword);
 app.use('/reset', reset);
+app.use('/editProfile', editProfile);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
