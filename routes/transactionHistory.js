@@ -22,8 +22,7 @@ router.route('/')
                    res.status(400).json("User not found");
                 }
                 else{
-                //console.log(req.decoded._doc);
-                    res.status(200).json(user.transactions);
+                        res.status(200).json(user.transactions);
                 }
             }
         });   

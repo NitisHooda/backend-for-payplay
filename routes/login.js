@@ -38,7 +38,6 @@ router.route('/')
                 email : user.email,
                 phoneNumber : user.phoneNumber
             }
-        
             var token = Verify.getToken(tokenData);
             res.status(200).json({
                 status : 'Successfully Loggedin',

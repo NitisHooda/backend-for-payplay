@@ -13,7 +13,6 @@ router.use(bodyParser.json());
 router.route('/')
 
 .post(Verify.verifyOrdinaryUser, function(req, res, next){
-    console.log(req.decoded.username);
     User.findOne({username : req.decoded.username }).exec(function(err, user){
             if (err) {
                  throw err;
@@ -23,20 +22,24 @@ router.route('/')
                    res.status(400).json("User not found");
                 }
                 else{
-                console.log(user);
-                    //res.status(200).json(user.transactions);
                     user.firstname = req.body.firstname;
                     user.lastname = req.body.lastname;
                     user.email = req.body.email;
                     user.phoneNumber = req.body.phoneNumber;
                     user.save(function(err, user){
-                        console.log(user.phoneNumber);
-                       res.status(200).json({
-                            firstname : user.firstname,
-                            lastname : user.lastname,
-                            email : user.email,
-                            phoneNumber : user.phoneNumber
-                        }); 
+                        if(err){
+                            var error = err.errmsg.split("{ :");
+                            var msg = error[1];
+                            res.status(err.code).json(msg);
+                            }
+                        else{
+                            res.status(200).json({
+                                firstname : user.firstname,
+                                lastname : user.lastname,
+                                email : user.email,
+                                phoneNumber : user.phoneNumber
+                            });
+                        }
                     });
                 }
             }
