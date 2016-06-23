@@ -38,6 +38,7 @@ router.route('/')
                 email : user.email,
                 phoneNumber : user.phoneNumber
             }
+            console.log(tokenData);
             var token = Verify.getToken(tokenData);
             res.status(200).json({
                 status : 'Successfully Loggedin',
@@ -52,7 +53,48 @@ router.route('/')
             console.log(user.username);
          });
     })(req, res, next);
-   
+    /*console.log(req.headers);
+    var authHeader = req.headers.authorization;
+    if (!authHeader) {
+        var err = new Error("You are not authenticated");
+        err.status = 401;
+        res.send(err);
+        console.log(err);
+        return;
+    }
+    var auth = new Buffer(authHeader.substring(6),'base64').toString().split(':');
+    var user = auth[0];
+    var pass = auth[1];
+    console.log(auth);
+    Users.findOne({username:user},function(err, result){
+            assert.equal(err,null);
+            //assert.notEqual(result,null);
+            console.log(result);
+            console.log(pass);
+            //assert.equal(result.password,pass); 
+            //sres.send("Successul");
+           
+            if (result != null) {
+                    if (result.password == pass) {
+                    res.send(result.username);
+                    
+                    }
+                    else{
+                        var error = new Error("Incorrect Password");
+                        //error.status = 500;
+                        //console.log(error.message);
+                        res.writeHead(404, error.message, {'content-Type' : 'text/plain'});
+                        res.end(error.message);
+                    }
+            }       
+            
+            else{
+                        error = new Error("Incorrect Username");
+                        res.writeHead(404, error.message, {'content-Type' : 'text/plain'});
+                        res.end(error.message);
+            }                
+                    
+        });*/
 });
 router.get('/logout', function(req, res){
    // console.log(req.headers);

@@ -34,13 +34,15 @@ router.route('/')
                     console.log('User not found');
                     res.status(400).json("Invalid Email!");
                 }
-                console.log(user);
-                user.resetPasswordToken = token;
-                user.resetPasswordExpires = Date.now() + 3600000; //1 hour
+                else{
+                    console.log(user);
+                    user.resetPasswordToken = token;
+                    user.resetPasswordExpires = Date.now() + 3600000; //1 hour
                 
-                user.save( function(err){
-                    done(err, token, user);
-                });
+                    user.save( function(err){
+                        done(err, token, user);
+                    });
+                }
             });  
         },
         function (token, user, done) {
