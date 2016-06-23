@@ -2,7 +2,10 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
 var transactionIdSchema = new Schema({
-    _id : "transactionId",
+    _id : {
+            type: String,
+            default : "transactionId"
+        },
     sequence_value : 0
 });
 
