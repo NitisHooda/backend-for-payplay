@@ -15,7 +15,14 @@ var transactionSchema = new Schema({
     },
     status:{
         type: String
+    },
+    Date : {
+        type: String
+    },
+    PayuTransactionID:{
+        type : String
     }
+    
 });
 //create schema
 var User = new Schema({
@@ -23,6 +30,12 @@ var User = new Schema({
         type: String,
         unique: true
         },
+    firstname:{
+        type: String,
+    },
+    lastname:{
+        type: String,
+    },
     password: {
         type: String,
         },
@@ -30,8 +43,8 @@ var User = new Schema({
         type : String,
         unique : true
     },
-    walletMoney : {
-        type :  Number 
+    phoneNumber : {
+        type :  String,
     },
     transactions: [transactionSchema],
     admin:{
