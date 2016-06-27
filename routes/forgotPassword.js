@@ -50,7 +50,7 @@ router.route('/')
                 service : 'gmail',
                 auth : {
                     user : 'nitishkum91@gmail.com',
-                    pass : 'nosurity4job#*'
+                    pass : 'hit7689#*'
                 }
             });
             

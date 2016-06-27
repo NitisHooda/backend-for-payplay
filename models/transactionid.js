@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 var transactionIdSchema = new Schema({
     _id : {
             type: String,
-            default : "transactionId"
+            value : "transactionId"
         },
     sequence_value : 0
 });
 
-var TransactionId = mongoose.model('TransactionId', transactionIdSchema);
+var TransactionIds = mongoose.model('TransactionId', transactionIdSchema);
 
-module.exports = TransactionId;
+module.exports = TransactionIds;

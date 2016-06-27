@@ -17,7 +17,7 @@ router.route('/')
 
 .post(function(req, res, next){
     console.log(req.body);
-    User.findOne({username : req.body.firstname}, function(err, user){
+    User.findOne({username : req.body.email}, function(err, user){
         if (err) {
             throw err;
         }
@@ -34,11 +34,12 @@ router.route('/')
         user.save(function(err, transaction){
             console.log(transaction);
         });
+        res.writeHead(302, {'Location' : 'test://'});
+    
+        res.end();
         
     });
-    res.writeHead(302, {'Location' : 'http://localhost:8100/#/app/home'});
     
-    res.end();
 })
 
 module.exports = router;

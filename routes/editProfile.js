@@ -13,7 +13,6 @@ router.use(bodyParser.json());
 router.route('/')
 
 .post(Verify.verifyOrdinaryUser, function(req, res, next){
-    console.log(req.decoded.username);
     User.findOne({username : req.decoded.username }).exec(function(err, user){
             if (err) {
                  throw err;

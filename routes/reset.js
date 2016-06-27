@@ -36,8 +36,8 @@ router.post('/:token', function(req, res, next){
                                         }
                                         user.setPassword(req.body.password, function(){
                                                 user.save();
-                                                res.status(200).json("Password changed succesfully");
-                                                console.log('Done');
+                                                res.writeHead(303, {'Location' : 'test://'});
+                                                res.end();
                                         });
                                         user.resetPasswordToken = undefined;
                                         user.resetPasswordExpires = undefined;
