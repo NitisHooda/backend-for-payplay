@@ -41,8 +41,8 @@ router.route('/')
             firstname : firstname,
             email : email,
             phone : req.decoded.phoneNumber,
-            surl : 'http://localhost:3000/success',
-            furl : 'http://localhost:3000/failure',
+            surl : 'http://ec2-52-40-84-202.us-west-2.compute.amazonaws.com:3000/success',
+            furl : 'http://ec2-52-40-84-202.us-west-2.compute.amazonaws.com:3000/failure',
             hash : hashEncode.toString('hex'),
             service_provider : 'payu_paisa'
         };
