@@ -1,10 +1,19 @@
-var TransactionId = require('./models/transactionid');
+var express = require('express')
+var bodyParser = require('body-parser')
+var TransactionIds = require('./models/transactionid');
 
-exports.getNextSequenceValue = function(transactionId){
-    var sequenceDocument =   TransactionId.findAndModify({
-        query : {_id : transactionId},
-        update : { $inc: {sequence_value : 1 }},
-        new : true
+var router = express.Router();
+router.use(bodyParser.json());
+
+exports.getNextSequenceValue = function(transactionId, fn){
+    console.log("all well upto here");
+    var sequenceDocument = {};
+    TransactionIds.findOneAndUpdate({_id : "transactionId"}, { $inc: {sequence_value : 1 }}, function(err, doc){
+                                    
+    
+        console.log(doc);
+        console.log(doc.sequence_value);
+        fn(doc.sequence_value);
     });
-    return sequenceDocument.sequence_value;
-};
+    
+    };
