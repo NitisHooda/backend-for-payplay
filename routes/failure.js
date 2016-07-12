@@ -17,7 +17,7 @@ router.route('/')
 
 .post(function(req, res, next){
     console.log(req.body);
-    User.findOne({username : req.body.email}, function(err, user){
+    User.findOne({email : req.body.email}, function(err, user){
         if (err) {
             throw err;
         }
@@ -34,7 +34,7 @@ router.route('/')
         user.save(function(err, transaction){
             console.log(transaction);
         });
-        res.writeHead(302, {'Location' : 'test://'});
+        res.writeHead(302, {'Location' : 'monitz://'});
     
         res.end();
         
