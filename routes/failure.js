@@ -34,7 +34,7 @@ router.route('/')
         user.save(function(err, transaction){
             console.log(transaction);
         });
-        res.writeHead(302, {'Location' : 'monitz://'});
+        res.writeHead(302, {'Location' : 'Monitz://'});
     
         res.end();
         

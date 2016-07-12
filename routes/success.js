@@ -34,7 +34,7 @@ router.route('/')
                 console.log(transction);
             });
         }
-        res.writeHead(302, {'Location' : 'monitz://'});
+        res.writeHead(302, {'Location' : 'Monitz://'});
     
     res.end();
         
