@@ -34,7 +34,7 @@ router.route('/')
                 console.log(transction);
             });
         }
-        res.writeHead(303, {'Location' : 'abcd://'});
+        res.writeHead(303, {'Location' : 'rocketmonitz://'});
     
     res.end();
         
