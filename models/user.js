@@ -56,6 +56,9 @@ var User = new Schema({
     },
     resetPasswordExpires : {
         type: Date
+    },
+    otp:{
+        type:String
     }
     },
     {timestamps: true}
