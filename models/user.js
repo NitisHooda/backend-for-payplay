@@ -24,6 +24,17 @@ var transactionSchema = new Schema({
     }
     
 });
+//delete it
+var profileSchema = new Schema({
+    person1:{
+        type: String,
+        default : "nitish"
+    },
+    persone2:{
+        type:String,
+        default:"vishnu"
+    }
+    });
 //create schema
 var User = new Schema({
     username: {
@@ -57,6 +68,7 @@ var User = new Schema({
     resetPasswordExpires : {
         type: Date
     },
+    profile:[profileSchema],
     otp:{
         type:String
     }
