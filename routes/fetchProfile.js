@@ -13,7 +13,7 @@ router.use(bodyParser.json());
 router.route('/')
 .get(function(req, res, next){
     User.findOne({username:"nitish"}, function(err,user){
-        res.send(user.username);     
+        res.send(user.profile);     
     });
 })
 
