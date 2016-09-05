@@ -20,7 +20,7 @@ router.post('/',function(req, res, next){
     }
     else{
       console.log(user);
-      user.otp = req.body.otp;
+      user.otp = req.body.OTP;
       user.save(function(err,user){
           if (err) {
             console.log(err);
