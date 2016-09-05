@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 });
 router.post('/',function(req, res, next){
   console.log(req.body);
-  Profile.findOne({phoneNumber:req.body.phone}, function(err, user){
+  Profile.findOne({phoneNumber:req.body.PHONENUMBER}, function(err, user){
     if(err){
         console.log(err);
         res.status(400).json("Try Again");
@@ -53,22 +53,22 @@ router.post('/OTP', function(req, res, next){
   
 });
 
-router.post('/vitals', function(req, res, next){
+router.post('/vitals', Verify.verifyOrdinaryUser, function(req, res, next){
     console.log(req.body);
-    Profile.findOne({phoneNumber : req.decoded.phoneNumber}, function(err, user){
+    Profile.findOne({phoneNumber : req.decoded.PHONENUMBER}, function(err, user){
       if (err){
           console.log(err);
         }
       else{
         user.Vitals.push({
-            HR : 0,
-            RR : 0,
-            Hb : 0,
-            SPO2 : 0
+            HR : req.body.Heart_rate,
+            RR : req.body.Respiration_rate,
+            Hb : req.body.Haemoglobin,
+            SPO2 : req.body.spo2
           });
         user.Vitals.BP.push({
-            Dystolic : 0,
-            Systolic : 0
+            Diastolic : req.body.Diastolic,
+            Systolic : req.body.Systolic
           });
         user.save();
         res.status(200).json("Succesfully done");
