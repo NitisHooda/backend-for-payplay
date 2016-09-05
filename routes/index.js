@@ -61,14 +61,14 @@ router.post('/vitals', function(req, res, next){
         }
       else{
         user.Vitals.push({
-            HR : ,
-            RR : ,
-            Hb : ,
-            SPO2 :
+            HR : 0,
+            RR : 0,
+            Hb : 0,
+            SPO2 : 0
           });
         user.Vitals.BP.push({
-            Dystolic : ,
-            Systolic : 
+            Dystolic : 0,
+            Systolic : 0
           });
         user.save();
         res.status(200).json("Succesfully done");
