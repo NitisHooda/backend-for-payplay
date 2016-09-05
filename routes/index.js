@@ -35,12 +35,12 @@ router.post('/',function(req, res, next){
 });
 router.post('/OTP', function(req, res, next){
   console.log(req.body);
-  Profile.findOne({phoneNumber:req.body.phone}, function(err, user){
+  Profile.findOne({phoneNumber:req.body.PHONENUMBER}, function(err, user){
     if (err) {
         console.log(err);
     }
     else{
-      if (user.opt == req.body.otp) {
+      if (user.opt == req.body.VALIDOTP) {
         var token = Verify.getToken(user.phoneNumber);
         console.log("valid user");
         res.status(200).json({token : token});
@@ -53,9 +53,9 @@ router.post('/OTP', function(req, res, next){
   
 });
 
-router.post('/vitals', Verify.verifyOrdinaryUser, function(req, res, next){
+router.post('/vitals', function(req, res, next){
     console.log(req.body);
-    Profile.findOne({phoneNumber : req.decoded.PHONENUMBER}, function(err, user){
+    Profile.findOne({phoneNumber : req.body.PHONENUMBER}, function(err, user){
       if (err){
           console.log(err);
         }
