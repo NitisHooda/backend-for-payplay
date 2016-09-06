@@ -41,7 +41,8 @@ router.post('/OTP', function(req, res, next){
     }
     else{
       if (user.opt == req.body.VALIDOTP) {
-        var token = Verify.getToken(user.phoneNumber);
+        //var token = Verify.getToken(user.phoneNumber);
+        var token = "teyu";
         console.log("valid user");
         res.status(200).json({token : token});
       }
@@ -64,9 +65,7 @@ router.post('/vitals', function(req, res, next){
             HR : req.body.Heart_rate,
             RR : req.body.Respiration_rate,
             Hb : req.body.Haemoglobin,
-            SPO2 : req.body.spo2
-          });
-        user.Vitals.BP.push({
+            SPO2 : req.body.spo2,
             Diastolic : req.body.Diastolic,
             Systolic : req.body.Systolic
           });

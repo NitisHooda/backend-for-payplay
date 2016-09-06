@@ -1,14 +1,6 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
-var BPSchema = new Schema({
-        Dystolic : {
-            type : String
-        },
-        Systolic  : {
-            type : String
-        }
-    });
 
 var VitalSchema = new Schema({
             HR : {
@@ -23,7 +15,12 @@ var VitalSchema = new Schema({
             SPO2 : {
                 type : String
             },
-            BP : [BPSchema]
+            Dystolic : {
+            type : String
+            },
+            Systolic  : {
+            type : String
+        }
             
     },{timeStamp : true});
 
