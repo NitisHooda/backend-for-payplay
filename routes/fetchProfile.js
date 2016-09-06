@@ -2,6 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser');
 
 var User = require('../models/user');
+var Profile = require('../models/homeUserbase');
 //var TransactionId = require('../models/transactionid');
 
 var app = express();
