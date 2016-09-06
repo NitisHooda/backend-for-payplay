@@ -18,8 +18,7 @@ router.route('/')
     if (err) {
         console.log(err);
     }
-    else{
-      if (user.opt == req.body.ENTEREDOTP) {
+    else if (user.otp == req.body.ENTEREDOTP){
         //var token = Verify.getToken(user.phoneNumber);
         //var token = "teyu";
         console.log("valid user");
@@ -31,7 +30,7 @@ router.route('/')
       else{
         console.log("invalid user");
       }
-    }
+    
   });
     
 })
