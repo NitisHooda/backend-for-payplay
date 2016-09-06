@@ -24,7 +24,7 @@ router.route('/')
         //var token = "teyu";
         console.log("valid user");
         User.findOne({username:"nitish"}, function(err,user){
-            console.log("yes" + user);
+            //console.log("yes" + user);
             res.status(200).json(user.profile);     
         });
       }
