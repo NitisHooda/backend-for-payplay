@@ -1,35 +1,26 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
-
-var VitalSchema = new Schema({
-            HR : {
-                type: String
-            },
-            RR : {
-                type : String
-            },
-            Hb : {
-                type : String
-            },
-            SPO2 : {
-                type : String
-            },
-            Dystolic : {
-            type : String
-            },
-            Systolic  : {
-            type : String
-        }
-            
-    },{timeStamp : true});
+var ProfileNameSchema = new Schema({
+                profileName : {
+                        type : String
+                },
+                Age : {
+                        type :String
+                },
+                Weight : {
+                        type : String
+                },
+                Height : {
+                        type: String
+                },
+                _id : {
+                        type : String
+                }
+        },{timeStamp : true});
 
 var profileSchema = new Schema({
-        profileName : {
-            type : String,
-
-        },
-        Vitals : [VitalSchema],
+        profile : [ProfileNameSchema],
         phoneNumber : {
             type : String
         },
