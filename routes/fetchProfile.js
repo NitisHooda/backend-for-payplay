@@ -1,6 +1,6 @@
 var express = require('express')
 var bodyParser = require('body-parser');
-
+var Verify = require('./verify');
 var User = require('../models/user');
 var Profile = require('../models/homeUserbase');
 //var TransactionId = require('../models/transactionid');
@@ -19,16 +19,26 @@ router.route('/')
         console.log(err);
     }
     else if (user.otp == req.body.ENTEREDOTP){
-        //var token = Verify.getToken(user.phoneNumber);
+        var token = Verify.getToken(user.phoneNumber);
+        var profileData = user.profile;
+        var array_size = profileData.length;
+        var profile = {};
+        for(var i=0; i <array_size; i++){
+             
+                profile[i] = profileData[i].profileName;   
+             
+        }
+        console.log(profile);
         //var token = "teyu";
         console.log("valid user");
-        User.findOne({username:"nitish"}, function(err,user){
+        //User.findOne({username:"nitish"}, function(err,user){
             //console.log("yes" + user);
-            res.status(200).json(user.profile);     
-        });
+            res.status(200).json({profile : profile , token :  token});     
+        
       }
       else{
         console.log("invalid user");
+        res.status(404).json("Wrong Otp");
       }
     
   });
