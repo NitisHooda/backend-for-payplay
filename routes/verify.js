@@ -10,10 +10,13 @@ exports.getToken = function(tokenData){
 
 exports.verifyOrdinaryUser = function(req, res, next){
     var AuthHeader = req.body.token || req.query.token || req.headers.authorization;
-    
+    console.log(AuthHeader);
     if (AuthHeader) {
         var splitHeader = AuthHeader.split(' ');
         var token = splitHeader[1];
+        if (token==0) {
+            token = req.body.token;
+        }
         var decode = jwt.decode(token, {complete:true});
         //console.log(decode);
         jwt.verify(token, config.secretKey, function(err, decoded){

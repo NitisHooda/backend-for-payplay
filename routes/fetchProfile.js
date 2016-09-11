@@ -47,6 +47,8 @@ router.route('/')
 })
 
 router.post('/token',Verify.verifyOrdinaryUser, function(req, res, next){
+    console.log(req.body);
+    console.log(req.decoded);
     Profile.findOne({phoneNumber:req.decoded.PHONENUMBER}, function(err, user){
     if (err) {
         console.log(err);
