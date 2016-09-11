@@ -14,7 +14,7 @@ exports.verifyOrdinaryUser = function(req, res, next){
     if (AuthHeader) {
         var splitHeader = AuthHeader.split(' ');
         var token = splitHeader[1];
-        if (token==0) {
+        if (token==null) {
             token = req.body.token;
         }
         var decode = jwt.decode(token, {complete:true});
