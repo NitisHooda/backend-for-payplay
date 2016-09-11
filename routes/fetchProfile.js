@@ -12,31 +12,6 @@ router.use(bodyParser.json());
 
 // POST payment details
 router.route('/')
-.get(Verify.verifyOrdinaryUser, function(req, res, next){
-    Profile.findOne({phoneNumber:req.decoded.PHONENUMBER}, function(err, user){
-    if (err) {
-        console.log(err);
-    }
-    else {
-        var profileData = user.profile;
-        var array_size = profileData.length;
-        var profile = {};
-        for(var i=0; i <array_size; i++){
-             
-                profile[i] = profileData[i].profileName;   
-             
-        }
-        console.log(profile);
-        //var token = "teyu";
-        console.log("valid user");
-        //User.findOne({username:"nitish"}, function(err,user){
-            //console.log("yes" + user);
-            res.status(200).json({profile : profile , token :  token});     
-        
-      }
-    
-  });
-    })
 
 .post(function(req, res, next){
     console.log(req.body);
@@ -69,6 +44,32 @@ router.route('/')
     
   });
     
+})
+
+router.post('/token',Verify.verifyOrdinaryUser, function(req, res, next){
+    Profile.findOne({phoneNumber:req.decoded.PHONENUMBER}, function(err, user){
+    if (err) {
+        console.log(err);
+    }
+    else {
+        var profileData = user.profile;
+        var array_size = profileData.length;
+        var profile = {};
+        for(var i=0; i <array_size; i++){
+             
+                profile[i] = profileData[i].profileName;   
+             
+        }
+        console.log(profile);
+        //var token = "teyu";
+        console.log("valid user");
+        //User.findOne({username:"nitish"}, function(err,user){
+            //console.log("yes" + user);
+            res.status(200).json({profile : profile , token :  token});     
+        
+      }
+    
+    });
 })
 
 module.exports = router;
