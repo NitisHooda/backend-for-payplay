@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Profile = require('../models/homeUserbase');
+var Test = require('../models/vital_parameters');
 var Vitals = require('../models/Vitals');
 var Verify = require('./verify');
 var passport = require('passport');
@@ -37,7 +38,13 @@ router.post('/',function(req, res, next){
 });
 
 router.post('/createProfile', function(req, res, next){
-    var profile = new Profile({phoneNumber : req.body.phoneNumber});
+  Profile.findOne({phoneNumber:req.body.phoneNumber}, function(err, user){
+    if (err) {
+        console.log(err);
+    }
+    else if (user == null) {
+        //code
+        var profile = new Profile({phoneNumber : req.body.phoneNumber});
     profile.save(function(err, profile){
       if (err) {
         console.log(err);
@@ -65,6 +72,28 @@ router.post('/createProfile', function(req, res, next){
           })
       }
       })
+    }
+    else {
+      user.profile.push({
+                profileName : req.body.profileName,
+                Age : req.body.Age,
+                Weight : req.body.Weight,
+                Height : req.body.Height,
+                _id : req.body._id
+          });
+        user.save(function(err, profile){
+            if (err) {
+              console.log(err);
+              res.send("bull");
+            }
+            else{
+              console.log(profile);
+              res.send("nonsense");
+            }
+          })
+    }
+    })
+    
   });
 
 router.post('/OTP', function(req, res, next){
@@ -98,67 +127,134 @@ router.post('/OTP', function(req, res, next){
 
 router.post('/vitals', function(req, res, next){
     console.log(req.body);
-    Profile.findOne({phoneNumber : req.body.PHONENUMBER}, function(err, user){
-      if (err){
-          console.log(err);
-          res.status(400).json("Something went wrong. Please try again.");
+    //Test.findOne()
+    Test.findOne({"user_id":req.body.user_id}, function(err, user){
+        console.log(user);
+        if (err) {
+            //code
+            console.log(err);
         }
-      else if(user == null){
-          res.status(401).json("Incorrect Phone Number");
-        }
-      else{
-          Vitals.findOne({profileId : req.body.profileId}, function(err, doc){
+        
+        else if(user==null){
+          var test = new Test({
+              user_id : req.body.user_id,
+              date : req.body.date
+            });
+          test.save(function(err, doc){
+            console.log(doc);
+            doc.heart_rate.push({
+              value : req.body.hr
+              });
+            doc.spo2.push({
+              value : req.body.spo2
+              });
+            doc.diastolic.push({
+              value : req.body.diastolic
+              });
+            doc.respiration_rate.push({
+              value : req.body.rr
+              });
+            doc.systolic.push({
+              value : req.body.systolic
+              });
+            doc.save(function(err, doc1){
               if (err) {
                 console.log(err);
-                res.status(400).json("Something went wrong. Couldn't save the data");
+                res.send(err);
               }
-              else if (doc == null) {
-                var vitals = new Vitals({
-                    profileId : req.body.profileId,
-                  });
-                vitals.save(function(err, doc){
-                    if (err) {
-                        console.log(err);
-                        res.send("booom");
-                    }
-                    else{
-                      console.log(doc);
-                      doc.VitalData.push({
-                        HR : req.body.Heart_rate,
-                        RR : req.body.Respiration_rate,
-                        Hb : req.body.Haemoglobin,
-                        SPO2 : req.body.spo2,
-                        Diastolic : req.body.Diastolic,
-                        Systolic : req.body.Systolic
-                      });
-                      doc.save();
-                      res.send(doc);
-                    }
-                });
-              }
-              else {
-                doc.VitalData.push({
-                  HR : req.body.Heart_rate,
-                  RR : req.body.Respiration_rate,
-                  Hb : req.body.Haemogobin,
-                  SPO2 : req.body.spo2,
-                  Diastolic : req.body.Diastolic,
-                  Systolic : req.body.Systolic
-                });
-                doc.save(function(err, doc){
-                    if (err) {
-                        console.log(err);
-                        res.send("not well");
-                    }
-                    else{
-                      console.log(doc);
-                      res.send(doc);
-                    }
-                });
-              } 
+              console.log(doc1);
+              res.send(doc1);
+              });
             
-          });
-      }
-    });
+            });
+        }
+        else{
+            user.heart_rate.push({
+              value : req.body.hr
+              });
+            user.spo2.push({
+              value : req.body.spo2
+              });
+            user.diastolic.push({
+              value : req.body.diastolic
+              });
+            user.respiration_rate.push({
+              value : req.body.rr
+              });
+            user.systolic.push({
+              value : req.body.systolic
+              });
+            user.save(function(err, doc1){
+              if (err) {
+                console.log(err);
+                res.send(err);
+              }
+              console.log(doc1);
+              res.send(doc1);
+              });
+        }
+      });
+    //Profile.findOne({phoneNumber : req.body.PHONENUMBER}, function(err, user){
+    //  if (err){
+    //      console.log(err);
+    //      res.status(400).json("Something went wrong. Please try again.");
+    //    }
+    //  else if(user == null){
+    //      res.status(401).json("Incorrect Phone Number");
+    //    }
+    //  else{
+    //      Vitals.findOne({profileId : req.body.profileId}, function(err, doc){
+    //          if (err) {
+    //            console.log(err);
+    //            res.status(400).json("Something went wrong. Couldn't save the data");
+    //          }
+    //          else if (doc == null) {
+    //            var vitals = new Vitals({
+    //                profileId : req.body.profileId,
+    //              });
+    //            vitals.save(function(err, doc){
+    //                if (err) {
+    //                    console.log(err);
+    //                    res.send("booom");
+    //                }
+    //                else{
+    //                  console.log(doc);
+    //                  doc.VitalData.push({
+    //                    HR : req.body.Heart_rate,
+    //                    RR : req.body.Respiration_rate,
+    //                    Hb : req.body.Haemoglobin,
+    //                    SPO2 : req.body.spo2,
+    //                    Diastolic : req.body.Diastolic,
+    //                    Systolic : req.body.Systolic
+    //                  });
+    //                  doc.save();
+    //                  res.send(doc);
+    //                }
+    //            });
+    //          }
+    //          else {
+    //            doc.VitalData.push({
+    //              HR : req.body.Heart_rate,
+    //              RR : req.body.Respiration_rate,
+    //              Hb : req.body.Haemogobin,
+    //              SPO2 : req.body.spo2,
+    //              Diastolic : req.body.Diastolic,
+    //              Systolic : req.body.Systolic
+    //            });
+    //            doc.save(function(err, doc){
+    //                if (err) {
+    //                    console.log(err);
+    //                    res.send("not well");
+    //                }
+    //                else{
+    //                  console.log(doc);
+    //                  res.send(doc);
+    //                }
+    //            });
+    //          } 
+    //        
+    //      });
+    //  }
+    //});
 });
 module.exports = router;
