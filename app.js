@@ -8,11 +8,27 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+  hostname     : '52-35-170-33',
+  port     : '3307',
+  user     : 'root',
+  database : 'Medaino_development'
+});
+
+connection.connect();
+connection.query('SELECT * FROM users LIMIT 2', function(err, rows, fields) {
+  if (!err)
+    console.log('The solution is: ', rows);
+  else
+    console.log(err);
+});
 
 var config = require('./config');
 mongoose.connect(config.mongoUrl);
 var db = mongoose.connection;
-db.on('error', console.error.bind(console,'connection error:'));
+db.on('error',function(err){console.log(err);});
 db.once('open',function(){
     console.log('Connected to server');
   });
@@ -44,6 +60,8 @@ app.use(cookieParser());
 
 //passport config
 var User = require('./models/user');
+var Profile = require('./models/homeUserbase');
+var Vitals = require('./models/Vitals.js');
 app.use(passport.initialize());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
