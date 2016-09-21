@@ -125,8 +125,21 @@ router.post('/OTP', function(req, res, next){
   
 });
 
+router.get('/date', function(req, res, next){
+  var date = new Date();
+  res.send(date);
+  });
+
 router.post('/vitals', function(req, res, next){
     console.log(req.body);
+    var date = new Date();
+    console.log(date);
+    var date1 = date.setHours(5, 30, 0, 0);
+    console.log(date1);
+    var date2 = new Date(date1);
+    console.log(date2);
+    var date3 = date2.toISOString();
+    console.log(date3);
     //Test.findOne()
     Test.findOne({"user_id":req.body.user_id}, function(err, user){
         console.log(user);
@@ -136,26 +149,38 @@ router.post('/vitals', function(req, res, next){
         }
         
         else if(user==null){
+          
           var test = new Test({
               user_id : req.body.user_id,
-              date : req.body.date
+              date :  date3
             });
+          console.log('new data');
           test.save(function(err, doc){
             console.log(doc);
             doc.heart_rate.push({
-              value : req.body.hr
+              value : req.body.hr,
+              created_at : new Date(),
+              percentage : "97"
               });
             doc.spo2.push({
-              value : req.body.spo2
+              value : req.body.spo2,
+              created_at : new Date(),
+              percentage : "98"
               });
             doc.diastolic.push({
-              value : req.body.diastolic
+              value : req.body.diastolic,
+              created_at : new Date(),
+              percentage : "99"
               });
             doc.respiration_rate.push({
-              value : req.body.rr
+              value : req.body.rr,
+              created_at : new Date(),
+              percentage : "100"
               });
             doc.systolic.push({
-              value : req.body.systolic
+              value : req.body.systolic,
+              created_at : new Date(),
+              percentage : "70"
               });
             doc.save(function(err, doc1){
               if (err) {
@@ -169,6 +194,7 @@ router.post('/vitals', function(req, res, next){
             });
         }
         else{
+          console.log('pre data');
             user.heart_rate.push({
               value : req.body.hr
               });
