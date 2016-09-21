@@ -8,22 +8,8 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mysql = require('mysql');
 
-var connection = mysql.createConnection({
-  hostname     : '52-35-170-33',
-  port     : '3307',
-  user     : 'root',
-  database : 'Medaino_development'
-});
 
-connection.connect();
-connection.query('SELECT * FROM users LIMIT 2', function(err, rows, fields) {
-  if (!err)
-    console.log('The solution is: ', rows);
-  else
-    console.log(err);
-});
 
 var config = require('./config');
 mongoose.connect(config.mongoUrl);
