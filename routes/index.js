@@ -127,7 +127,9 @@ router.post('/OTP', function(req, res, next){
 
 router.get('/date', function(req, res, next){
   var date = new Date();
-  res.send(date);
+  var zerohour_date = date.setHours(5,30,0,0);
+  var date1= new Date(zerohour_date);
+  res.status(200).json(date1);
   });
 
 router.post('/vitals', function(req, res, next){
