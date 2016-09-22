@@ -155,7 +155,7 @@ router.get('/fetch_Profile', function(req, res, next){
 
 router.get('/date', function(req, res, next){
   var date = new Date();
-  var zerohour_date = date.setHours(5,30,0,0);
+  var zerohour_date = date.setHours(0,0,0,0);
   var date1= new Date(zerohour_date);
   res.status(200).json({zerohour_Date: date1});
   });
