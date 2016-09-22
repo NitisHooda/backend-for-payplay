@@ -158,7 +158,8 @@ router.get('/date', function(req, res, next){
   var date = new Date();
   var zerohour_date = date.setHours(0,0,0,0);
   var date1= new Date(zerohour_date);
-  res.status(200).json({zerohour_Date: date1});
+  res.status(200).json({zerohour_Date: date1,
+                       currentDate : date});
   });
 
 router.post('/vitals', function(req, res, next){
