@@ -160,6 +160,7 @@ router.get('/date', function(req, res, next){
   date.setMinutes(date.getMinutes()+30);
   var date2 = new Date();
   var zerohour_date = date2.setHours(0,0,0,0);
+  var date1= new Date(zerohour_date);
 res.status(200).json({zerohour_Date: "ISODate('"+date1.toISOString()+"')", currentDate : "ISODate('"+date.toISOString()+"')"});
 });
 
