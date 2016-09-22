@@ -125,6 +125,34 @@ router.post('/OTP', function(req, res, next){
   
 });
 
+router.get('/fetch_Profile', function(req, res, next){
+  var connection = mysql.createConnection({
+  host    : '52.35.170.33',
+  port     : '3307',
+  user     : 'root',
+  password : '',
+  database : 'Medaino_development'
+});
+  
+  connection.connect();
+  connection.query('SELECT * FROM users WHERE id=18', function(err, row){
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      else{
+        var data = {
+          weight : row[0].weight,
+          height : row[0].height,
+          gender : row[0].gender
+        }
+        console.log(data);
+        res.send(data);
+      }
+    });
+  connection.end();
+});
+
 router.get('/date', function(req, res, next){
   var date = new Date();
   var zerohour_date = date.setHours(5,30,0,0);
