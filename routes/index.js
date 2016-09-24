@@ -136,6 +136,7 @@ router.get('/fetch_Profile', function(req, res, next){
 });
   
   connection.connect();
+  var Profiles = [];
   connection.query('SELECT * FROM users WHERE id=18', function(err, row){
       if (err) {
         console.log(err);
@@ -147,8 +148,10 @@ router.get('/fetch_Profile', function(req, res, next){
           height : row[0].height,
           gender : row[0].gender
         }
-        console.log(data);
-        res.send(data);
+        Profiles[0] = data;
+        Profiles[1] = data;
+        console.log(Profiles);
+        res.send(Profiles);  
       }
     });
   connection.end();
