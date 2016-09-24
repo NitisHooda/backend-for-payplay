@@ -144,6 +144,7 @@ router.get('/fetch_Profile', function(req, res, next){
       }
       else{
         var data = {
+          profileName : row[0].first_name,
           weight : row[0].weight,
           height : row[0].height,
           gender : row[0].gender
