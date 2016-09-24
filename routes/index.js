@@ -153,7 +153,8 @@ router.get('/fetch_Profile', function(req, res, next){
         Profiles[1] = {
           profileName : 'Vishnu',
           weight : 75,
-          height : 182
+          height : 182,
+          gender : 0
           };
         console.log(Profiles);
         res.send(Profiles);  
