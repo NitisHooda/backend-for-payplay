@@ -150,7 +150,11 @@ router.get('/fetch_Profile', function(req, res, next){
           gender : row[0].gender
         }
         Profiles[0] = data;
-        Profiles[1] = data;
+        Profiles[1] = {
+          profileName : 'Vishnu',
+          weight : 75,
+          height : 182
+          };
         console.log(Profiles);
         res.send(Profiles);  
       }
