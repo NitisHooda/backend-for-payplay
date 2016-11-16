@@ -181,7 +181,7 @@ router.get('/update', function(req,res,next){
     console.log(err);
   }
   else{
-    console.log(file);
+    //console.log(file);
     var update = {
       version : 1,
       file: file
