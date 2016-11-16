@@ -175,18 +175,13 @@ res.status(200).json({zerohour_Date: "ISODate('"+date1.toISOString()+"')", curre
 });
 
 router.get('/update', function(req,res,next){
- fs.readFile('./public/TEST_OTA.bin', 'utf8',function(err, file){
+ fs.readFile('./public/TEST_OTA.bin', 'binary',function(err, file){
   if (err) {
     //code
     console.log(err);
   }
   else{
-    //console.log(file);
-    var update = {
-      version : 1,
-      file: file
-    }
-    res.send(update);
+    res.send(file);
   } } );
  
   
