@@ -7,6 +7,7 @@ var Vitals = require('../models/Vitals');
 var Verify = require('./verify');
 var passport = require('passport');
 var mysql = require('mysql');
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
