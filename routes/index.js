@@ -173,6 +173,26 @@ router.get('/date', function(req, res, next){
 res.status(200).json({zerohour_Date: "ISODate('"+date1.toISOString()+"')", currentDate : "ISODate('"+date.toISOString()+"')"});
 });
 
+router.get('/update', function(req,res,next){
+ fs.readFile('./public/TEST_OTA.bin', 'utf8',function(err, file){
+  if (err) {
+    //code
+    console.log(err);
+  }
+  else{
+    console.log(file);
+    var update = {
+      version : 1,
+      file: file
+    }
+    res.send(update);
+  } } );
+ 
+  
+  
+  
+});
+
 router.post('/vitals', function(req, res, next){
     console.log(req.body);
     var date = new Date();
